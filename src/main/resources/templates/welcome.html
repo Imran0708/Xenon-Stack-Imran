@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://thymeleaf.org">
+<head>
+<!--<meta charset="ISO-8859-1">-->
+ <!-- Basic -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+    <!-- Mobile Metas -->
+    <meta name="viewport" content="width=device-width, maximum-scale=1, initial-scale=1, user-scalable=0">
+
+    <!-- Site Metas -->
+    <title>Food-Nerd</title>
+    <meta name="keywords" content="">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <!-- Site Icons -->
+    <link rel="shortcut icon" th:href="@{images/favicon.ico}" type="image/x-icon" />
+    <link rel="apple-touch-icon" th:href="@{images/apple-touch-icon.png}">
+
+    <!-- Bootstrap CSS -->
+  
+    <link rel="stylesheet" th:href="@{css/bootstrap.min.css}">
+    <!-- Site CSS -->
+    <link rel="stylesheet" th:href="@{css/style.css}">
+    <!-- Responsive CSS -->
+    <link rel="stylesheet" th:href="@{css/responsive.css}">
+   
+   
+    <!-- cart css -->
+    
+    <link rel="stylesheet" type="text/css" th:href="@{css/homecartstyle.css}">
+    
+    <!-- color -->
+    <link id="changeable-colors" rel="stylesheet" th:href="@{css/colors/orange.css}" />
+
+    <!-- Modernizer -->
+    <script th:src="@{js/modernizer.js}"></script>
+    
+    
+    <style>
+        .hvr-underline-from-center{
+            color: white;
+            background-color: #e75b1e;
+
+        }
+
+    </style>
+
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+      <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+<title>Home page</title>
+</head>
+<body>
+
+	 <div id="loader">
+        <div id="status"></div>
+    </div>
+    <div     class="container">
+    <div id="site-header">
+        <header id="header" class="header-block-top">
+            <div  class="container">
+                <div class="row">
+                    <div class="main-menu">
+                        <!-- navbar -->
+                      
+                         <div th:insert="@{/navbar}"> </div>
+                        <!-- end navbar -->
+                    </div>
+                </div>
+                <!-- end row -->
+            </div>
+            <!-- end container-fluid -->
+        </header>
+        <!-- end header -->
+    </div>
+</div>
+	<!-- end site-header -->
+	
+    <div id="banner" class="banner full-screen-mode parallax">
+        <div class="container pr">
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                <div class="banner-static">
+                    <div class="banner-text">
+                        <div class="banner-cell">
+                            <h1>Bringing Good food into your  <span class="typer" id="some-id" data-delay="200" data-delim=":" data-words="Friends:Family:Officemates" data-colors="red"></span><span class="cursor" data-cursorDisplay="_" data-owner="some-id"></span></h1>
+                            <h2>Made with Love </h2>
+                            <p></p>
+                            <div class="book-btn">
+                                <a href="#reservation" class="table-btn hvr-underline-from-center">Book Your Food</a>
+                            </div>
+                            <a href="#about">
+                                <!-- <div class="mouse"></div> --> 
+                            </a>
+                        </div>
+                        <!-- end banner-cell -->
+                    </div>
+                    <!-- end banner-text -->
+                </div>
+                <!-- end banner-static -->
+            </div>
+            <!-- end col -->
+        </div>
+        <!-- end container -->
+    </div>
+    <!-- end banner -->
+
+    
+
+   
+   <!--  dynamic cards -->
+   
+		<div class="container-fluid">
+		<div class="row d-flex justify-content-center">
+		<div class="card col-sm-3 m-3 p-3" th:each="reasturant:${cardReastraurants}" id="cards">
+			 <img src="/images/restaurant.jpg" class="img-thumbnail" alt="..." id="img"/> 
+							<div class="card-body">
+								<h2 class="card-title">
+								<span></span>
+								</h2>
+								<p><span th:text="${reasturant.name}"></span></p>
+								<a href="#" class="btn btn-primary">Go somewhere</a>
+						</div>
+		</div>
+		</div>
+		</div>
+		
+	
+      <!-- cart close -->
+
+
+
+    <div id="footer" class="footer-main">
+        <div class="footer-news pad-top-100 pad-bottom-70 parallax">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                        <div class="wow fadeIn" data-wow-duration="1s" data-wow-delay="0.1s">
+                            <h2 class="ft-title color-white text-center"> Newsletter </h2>
+                            <p> Lorem ipsum dolor sit amet, consectetur adipiscing elit</p>
+                        </div>
+                        <form>
+                            <input type="email" placeholder="Enter your e-mail id">
+                            <a href="#" class="orange-btn"><i class="fa fa-paper-plane-o" aria-hidden="true"></i></a>
+                        </form>
+                    </div>
+                    <!-- end col -->
+                </div>
+                <!-- end row -->
+            </div>
+            <!-- end container -->
+        </div>
+
+
+<!-- contact us form -->
+		<div th:insert="@{/Contact}"> </div>
+
+<!-- end contact us form -->
+
+        <input type="hidden"  name="${_csrf.parameterName}"   value="${_csrf.token}"/>
+  
+
+    <!-- ALL JS FILES -->
+    <script src="js/all.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <!-- ALL PLUGINS -->
+    <script src="js/custom.js"></script>
+	
+	
+	
+
+</body>
+</html>

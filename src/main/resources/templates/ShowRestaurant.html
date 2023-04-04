@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="https://thymeleaf.org">
+<head>
+<meta charset="ISO-8859-1">
+<title>Reasurants list</title>
+</head>
+<body>
+<div align="center">
+	<h1>show hotels</h1>	
+	<table border="1">
+		<thead>
+		<tr>
+			<th>firstName</th>
+			<th>lastName</th>
+			<th>email</th>
+			<th>mobileNo</th>
+			<th>gender</th>
+			<th>address</th>
+			<th>city</th>
+			<th>state</th>
+			<th> pinCode </th>
+			<th> password </th>
+			<th> date </th>
+			<th> role </th>
+			<th> restaurantName </th>
+			<th> licenseNo </th>
+			<th> category </th>
+			<th> restaurantType</th>
+			<th> restaurantImage</th>
+			
+		</tr>
+		</thead>
+		<tbody>
+				<tr th:each="restaurant :${listReastraurants}">
+					<td th:text="${restaurant.firstName}"></td>
+					<td th:text="${reasturant.lastName}"></td>
+					<td th:text="${reasturant.email}"></td>
+					<td th:text="${reasturant.mobileNo}"></td>
+					<td th:text="${reasturant.gender}"></td>
+					<td th:text="${reasturant.address}"></td>
+					<td th:text="${reasturant.city}"></td>
+					<td th:text="${reasturant.state}"></td>
+					<td th:text="${reasturant.pinCode}"></td>
+					<td th:text="${reasturant.password}"></td>
+					<td th:text="${reasturant.date}"></td>
+					<td th:text="${reasturant.role}"></td>
+					<td th:text="${reasturant.restaurantName}"></td>
+					<td th:text="${reasturant.licenseNo}"></td>
+					<td th:text="${reasturant.category}"></td>
+					<td th:text="${reasturant.restaurantType}"></td>
+					<td th:text="${reasturant.restaurantImage}"></td>
+					
+				<!-- 	<td scope="row"><img alt="" th:src="*{'data:image/jpeg;base64,'+{reasturant.restaurantImage}}" style="width:100px; height:70px"></td> -->
+					
+					
+					<td> <a th:href="@{/showFormForRUpdate/{id}(id=${reasturant.id})}">Update</a>
+					    <a th:href="@{/deletereasturant/{id}(id=${reasturant.id})}">Delete</a>
+					</td>
+					
+					
+				</tr>
+				
+				
+		</tbody>
+	</table>
+</div>
+
+ <input type="hidden"  name="${_csrf.parameterName}"   value="${_csrf.token}"/>
+
+</body>
+</html>
+
+
+	

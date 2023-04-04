@@ -1,0 +1,481 @@
+<!DOCTYPE html>  
+<html lang="en" xmlns:th="https://www.thymeleaf.org">
+<head>  
+<meta name="viewport" content="width=device-width, initial-scale=1">  
+<title>Registration</title>
+
+     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+        integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+ 
+    <style>
+    
+    /*start  */
+    body {
+  /*background-image: url('image4.png');*/
+  background-color: rgb(166, 150, 196);
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-size: 100% 100%;
+}
+
+#mythred {
+  background-color: rgb(86, 100, 105);
+  height: auto;
+}
+#mythredd {
+  background-color: rgb(166, 150, 196);
+  height: auto;
+}
+
+#mythred1 {
+  background-color: rgb(93, 119, 133);
+  height: auto;
+}
+
+#mythred2 {
+  background-color: rgb(167, 135, 190);
+  height: auto;
+}
+
+#mythred3 {
+  background-color: darkgreen;
+  height: auto;
+}
+.formerror {
+  color: black;
+}
+.bg-text {
+  background-color: rgba(0, 0, 0, 0.4); /* Black w/opacity/see-through */
+  color: white;
+  font-weight: bold;
+  border: 3px solid #f1f1f1;
+  position: absolute;
+  top: 65%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+
+  width: 80%;
+  padding: 20px;
+}
+    
+    
+    
+    /* end */
+        form input {
+            justify-content: center;
+        }
+
+        body {
+            background-image: url("/images/CkRegBg.jpg");
+            background-position: center;
+            background-repeat: no-repeat;
+            background-size: cover;
+        }
+
+        body h2 {
+            color: red;
+        }
+
+        body u {
+            color: skyblue;
+        }
+
+        body option,
+        label {
+            color: orange;
+        }
+    </style>
+    <script src="CkScript.js"></script>
+
+    <script src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-3.6.0.js"></script>
+</head>
+
+<body>
+  	<div class="row container-fluid justify-content-center mt-3 mb-3">
+    <div th:if="${RegFail}" class="alert alert-success text-center mb-2 mt-2">
+   <p> [[${RegFail}]]</p>
+    </div>
+	</div>
+    <div class="row col-md-11 mt-4 mb-3">
+    
+        <form class="col-md-8 form" th:action="@{/register}" method="POST" th:object="${user}"
+        name="regForm" id="myForm" onsubmit="return validForm()" >
+            <div class="row col-md-11 mt-2 justify-content-center">
+                <h2><strong><label for="role">Register as : </label></strong>
+                    <select class="btn btn-primary dropdown-toggle" name="role" id="role" autofocus>
+                        <option id="cust" value="Customer">Customer</option>
+                        <option id="rest" value="Restaurant">Restaurant</option>
+                        <option id="deli" value="Delivery">Delivery Partner</option>
+                      // <option id="ngo" value="NGO">NGO</option> 
+                    </select>
+                </h2>
+                <div class="container-fluid col-md-6 mt-2">
+                    <div class="text-center mb-3"> <strong><u>Basic Details </u></strong></div>
+                    <div class="col-md-12 mb-3">
+                        <label for="regFname">First Name</label>
+                        <input type="text" class="form-control" name="firstName" id="regFname" placeholder="First name"
+                            onblur="validString(this.id)">
+                    </div>
+                    <div class="col-md-12 mb-3">
+                        <label for="regLname">Last Name</label>
+                        <input type="text" class="form-control" name="lastName" id="regLname" placeholder="Last name"
+                            onblur="validString(this.id)">
+                    </div>
+                    <div class="col-md-12 mb-3">
+                        <label for="regEmail">Email</label>
+                        <input type="text" class="form-control" name="email" id="regEmail" placeholder="Email"
+                            onblur="validEmail(this.id)">
+                    </div>
+                    <div class="col-md-12 mb-3">
+                        <label for="regContact">Phone Number</label>
+                        <input type="text" class="form-control" name="mobileNo" id="regContact" placeholder="Phone Number"
+                            onblur="validMobile(this.id)" onkeypress="return isNumberKey(event)" th:length="10">
+                    </div>
+                    <div class="col-md-12 mb-3">
+                        <label for="regGen">Gender</label>
+                        <select class="btn btn-light dropdown-toggle col-md-12" name="gender" id="regGen"
+                            onblur="validGender(this.id)">
+                            <option value="null">Select Your Gender</option>
+                            <option value="Male">Male</option>
+                            <option value="Female">Female</option>
+                            <option value="Other">Other</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="container-fluid col-md-6 mt-2">
+                    <div class="text-center mb-3"> <strong><u>Address</u></strong></div>
+                    <div class="col-md-12 mb-3">
+                        <label for="regAddLocality">Locality</label>
+                        <input type="text" class="form-control" name="address" id="regAddLocality" placeholder="Locality"
+                            onblur="validStringNum(this.id)">
+                    </div>
+                    <div class="col-md-12 mb-3">
+                        <label for="regAddCity">City</label>
+                        <input type="text" class="form-control" name="city" id="regAddCity" placeholder="City"
+                            onblur="validString(this.id)">
+                    </div>
+                    <div class="form-row container-fluid">
+                        <div class="col-md-8 mb-3">
+                            <label for="regAddState">State</label>
+                            <input type="text" class="form-control" name="state" id="regAddState" placeholder="State"
+                                onblur="validString(this.id)">
+                        </div>
+                        <div class="col-md-4 mb-3">
+                            <label for="regAddPinCode">Pin Code</label>
+                            <input type="text" class="form-control" name="pinCode" id="regAddPinCode" placeholder="Pin Code"
+                                onblur="validPinCode(this.id)" onkeypress="return isNumberKey(event)">
+                        </div>
+                    </div>
+                    <div class="col-md-12 mb-3">
+                        <label for="pw">Password</label>
+                        <input type="password" class="form-control" name="password" id="regPassword" placeholder="Password"
+                            onblur="validStringNumExp(this.id)">
+                    </div>
+
+                </div>
+
+                <div id="restDetails" class="row col-md-12 mb-3">
+                    <div class="col-md-6 mb-3">
+                        <label for="restName">Restaurant Name</label>
+                        <input type="text" class="form-control" name= "restaurantName" id="restName" placeholder="First name"
+                            onblur="validString(this.id)">
+                    </div>
+                    <div class="col-md-6 mb-3">
+                        <label for="restId">Registeration Number</label>
+                        <input type="text" class="form-control" name="licenseNo" id="restId" placeholder="FSSAI Licence Number"
+                            onblur="validStringNum(this.id)">
+                    </div>
+                    <div class="col-md-6 mb-3">
+                        <label for="restCat">Category</label>
+                        <select class="btn btn-light dropdown-toggle col-md-12" name="cateogry" id="restCat"
+                            onblur="validDropdown(this.id)">
+                            <option value="null">Select Category</option>
+                            <option value="restCatR">Restaurant</option>
+                            <option value="restCatCk">Cloud Kitchen</option>
+                            <option value="restCatO">Other</option>
+                        </select>
+                    </div>
+                    <div class="col-md-6 mb-3">
+                        <label for="restType">Restaurant Type</label>
+                        <select class="btn btn-light dropdown-toggle col-md-12" name="restaurantType" id="restType"
+                            onblur="validDropdown(this.id)">
+                            <option value="null">Select Type of Your Services</option>
+                            <option value="restTypeDin">Dine In</option>
+                            <option value="restTypeTawy">Take Away</option>
+                            <option value="restTypeBoth">Both</option>
+                        </select>
+                    </div>
+                </div>
+                <div id="dboyDetails" class="row col-md-12 mb-3">
+                    <div class="col-md-6 mb-3">
+                        <label for="dboyId">Aadhaar Card Number</label>
+                        <input type="text" class="form-control" name="adharNo;" id="dboyId" placeholder="Aadhaar ID Number"
+                            onblur="validAadhaar(this.id)" onkeypress="return isNumberKey(event)">
+                    </div>
+                    <div class="col-md-6 mb-3">
+                        <label for="dboyDl">Driving License Number</label>
+                        <input type="text" class="form-control" name="drivingLicese" id="dboyDl" placeholder="Driving Licence Number"
+                            onblur="validStringNum(this.id)">
+                    </div>
+                </div>
+                <div id="ngoDetails" class="row col-md-12 mb-3">
+                    <div class="col-md-6 mb-3">
+                        <label for="ngoName">NGO Name</label>
+                        <input type="text" class="form-control" name="ngoName" id="ngoName" placeholder="NGO Name"
+                            onblur="validString(this.id)">
+                    </div>
+                    <div class="col-md-6 mb-3">
+                        <label for="ngoId">Registeration Number</label>
+                        <input type="text" class="form-control" name="ngoRegistrationNo" id="ngoId" placeholder="NGO Registeration Number"
+                            onblur="validStringNum(this.id)">
+                    </div>
+                    <div class="col-md-12 mb-3">
+                        <label for="ngoAccNum">NGO Account Number</label>
+                        <input type="text" class="form-control" name="bankAccountNumber" id="ngoAccNum" placeholder="NGO Bank Account Details"
+                            onblur="validNumber(this.id)" onkeypress="return isNumberKey(event)">
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-11 text-center mt-3 mb-2">
+                <button class="btn btn-primary col-md-12 mt-3" type="submit" id="register">Register
+                    Now</button>
+            </div>
+        </form>
+
+        <div class="container-fluid col-md-4 mt-5">
+            <img src="/images/CkRegSide.jpeg" alt="Don't waste food !!"
+                style="height: 90%; width: 120%; border-radius: 15%; opacity: 80%;">
+        </div>
+
+    </div>
+    
+    
+    <script type="text/javascript">
+    
+    // validation
+/*     function clearErrors() {
+  errors = document.getElementsByClassName("formerror");
+  for (let item of errors) {
+    item.innerHTML = "";
+  }
+} */
+    
+    
+   /*  function seterror(id, error) {
+    	  //sets error inside tag of id
+    	  element = document.getElementById(id);
+    	  element.getElementsByClassName("formerror")[0].innerHTML = error;
+    	} */
+    
+    // validation
+    
+    function validForm(){
+        let fN = document.forms["regForm"]["firstName"].value;
+        let lN = document.forms["regForm"]["lastName"].value;
+        let eM = document.forms["regForm"]["email"].value;
+        let pN = document.forms["regForm"]["mobileNo"].value;
+        let g = document.forms["regForm"]["gender"].value;
+        let aL = document.forms["regForm"]["address"].value;
+        let aC = document.forms["regForm"]["city"].value;
+        let aS = document.forms["regForm"]["state"].value;
+        let aP = document.forms["regForm"]["pinCode"].value;
+        let pW = document.forms["regForm"]["password"].value;
+
+
+
+
+        var alp = /[a-zA-Z ]/g;
+        var num = /[0-9]/g;
+        
+        if ((fN == "")||(fN.match(num))||(fN.length<3)
+          ||(lN == "")||(lN.match(num))||(lN.length<3)
+          ||(eM == "")
+          ||(pN == "")||(pN.match(alp))||(pN.length<10)
+          ||(g == "null")
+          ||(aL == "")||(aL.length<5)
+          ||(aC == "")||(aC.match(num))||(aC.length<3)
+          ||(aS == "")||(aS.match(num))||(aS.length<3)
+          ||(aP == "")||(aP.match(alp))||(aP.length<5)
+          ||(pW == "")
+          ){
+        	
+          return false;        
+        } else{
+        	return "redirect:/login?chang=Registeration Successfull..."
+        	
+        }
+            
+        
+}
+
+
+
+// CkReg Form Validation
+
+function validString(id) {
+var element = document.getElementById(id);
+var regExp = /^[a-zA-Z ]+$/
+if ((!regExp.test(element.value)) || (element.value.length < 2)) {
+  element.style.border = "2px solid red";
+ /*  seterror("fN", "*please fill the details"); */
+  return false;
+}
+element.style.border = "2px solid green";
+}
+function validMobile(id) {
+var element = document.getElementById(id);
+var regExp = /^[0-9]+$/
+if ((!regExp.test(element.value)) || (element.value.length < 10)) {
+  element.style.border = "2px solid red";
+ /*  seterror("pN", "*please fill the details"); */ 
+  return false;
+}
+element.style.border = "2px solid green";
+}
+function validEmail(id) {
+var element = document.getElementById(id);
+var regExp = /^[a-z0-9._]+@[a-z]+\.[a-z]{3,5}$/;
+if (!regExp.test(element.value)) {
+  element.style.border = "2px solid red";
+ /*  seterror("name", "*please fill the details"); */
+  return false;
+}
+element.style.border = "2px solid green";
+}
+function validStringNum(id) {
+var element = document.getElementById(id);
+var regExp = /^[A-za-z0-9# ]{3,25}$/;
+if (!regExp.test(element.value)) {
+  element.style.border = "2px solid red";
+/*   seterror("name", "*please fill the details"); */
+  return false;
+}
+element.style.border = "2px solid green";
+}
+function validPinCode(id) {
+var element = document.getElementById(id);
+var regExp = /^[0-9]+$/
+if ((!regExp.test(element.value)) || (element.value.length < 5)) {
+  element.style.border = "2px solid red";
+  /* seterror("name", "*please fill the details"); */
+  return false;
+}
+element.style.border = "2px solid green";
+}
+function validStringNumExp(id) {
+var element = document.getElementById(id);
+var regExp = /^[A-Za-z0-9#@_ ]{3,25}$/;
+if ((!regExp.test(element.value))|| (element.value.length < 5)) {
+  element.style.border = "2px solid red";
+  /* seterror("name", "*please fill the details"); */
+  return false;
+}
+element.style.border = "2px solid green";
+}
+function validNumber(id) {
+var element = document.getElementById(id);
+var regExp = /^[0-9]+$/;
+if (!regExp.test(element.value)) {
+  element.style.border = "2px solid red";
+ /*  seterror("name", "*please fill the details"); */
+  return false;
+}
+element.style.border = "2px solid green";
+}
+
+function validAadhaar(id) {
+var element = document.getElementById(id);
+ var regExp = /^[0-9]$/; /*(!regExp.test(element.value))|| */
+if ( !regExp.test(element.value) || (element.value.length < 11)) {
+  element.style.border = "2px solid red";
+ /*  seterror("name", "*please fill the details"); */
+  return false;
+}
+element.style.border = "2px solid green";
+}
+function validDropdown(id) {
+var element = document.getElementById(id);
+var x = $("#restType option:selected").val();
+if (x == "null"){
+  element.style.border = "2px solid red";
+/*   seterror("name", "*please fill the details"); */
+  return false;
+}
+element.style.border = "2px solid green";
+}
+function validGender(id) {
+var element = document.getElementById(id);
+var x = $("#regGen option:selected").val();
+if (x == "null"){
+  element.style.border = "2px solid red";
+ /*  seterror("name", "*please fill the details"); */
+  return false;
+}
+element.style.border = "2px solid green";
+}
+
+
+// CkReg Dropdown
+
+$("#custDetails").show();
+$("#restDetails").hide();
+$("#dboyDetails").hide();
+$("#ngoDetails").hide();
+
+
+
+$("#role").change(function () {
+
+var x = $("#role option:selected").val();
+if (x == "Restaurant") {
+  $("#custDetails").hide();
+  $("#restDetails").show();
+  $("#dboyDetails").hide();
+  $("#ngoDetails").hide();
+}
+else if (x == "Delivery") {
+  $("#custDetails").hide();
+  $("#restDetails").hide();
+  $("#dboyDetails").show();
+  $("#ngoDetails").hide();
+}
+else if (x == "NGO") {
+  $("#custDetails").hide();
+  $("#restDetails").hide();
+  $("#dboyDetails").hide();
+  $("#ngoDetails").show();
+}
+else {
+  $("#custDetails").show();
+  $("#restDetails").hide();
+  $("#dboyDetails").hide();
+  $("#ngoDetails").hide();
+}
+});
+
+function isNumberKey(evt)
+{
+	var charCode = (evt.which) ? evt.which : evt.keyCode;
+	if (charCode != 46 && charCode > 31 
+	&& (charCode < 48 || charCode > 57))
+	return false;
+	return true;
+}  
+
+/*new add  */
+
+    </script>
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+        integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+        crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+        integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+        crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+        integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+        crossorigin="anonymous"></script> </script>
+</body>
+
+</html>

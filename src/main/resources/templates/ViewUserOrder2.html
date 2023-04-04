@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="ISO-8859-1">
+<title>My Orders</title>
+
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+    integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous" />
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.0/css/all.css"
+    integrity="sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ" crossorigin="anonymous" />
+
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-KyZXEAg3QhqLMpG8r+8fhAXLRk2vvoC2f3B09zVXn8CA5QIVfZOJ3BCsw2P0p/We" crossorigin="anonymous" />
+
+
+
+
+
+
+</head>
+<body>
+
+<nav class="navbar navbar-expand-lg navbar-light bg-warning">
+      <div class="container-fluid"  >
+      
+        <a class="navbar-brand ml-3" th:href="@{/customer}">
+            <img th:src="@{/images/foodnerd.png}"  width="80" height="80"/></a>
+
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+          <ul class="navbar-nav mr-auto"></ul>
+          <ul class="navbar-nav">
+            <!-- <li class="nav-item active">
+              <a class="nav-link" th:href="@{/}" href="#"><h5>Home</h5> </a>
+            </li> -->
+             
+             <li class="nav-item active">
+             <span th:each="user :${user}">
+             
+               <a class="nav-link" href="#"><h5><span th:text="${user.firstName}"></span></h5></a> 
+           </span>
+            </li>
+            
+            
+             <li class="nav-item active">
+             <span th:each="user :${user}">
+           
+               <a class="nav-link" th:href="#"><h5> My Orders</h5></a> 
+           </span>
+            </li>
+            
+            
+            
+            
+            
+            
+             <li>
+               <span th:each="user :${user}">
+                  
+                        
+                        <a th:href="@{/customerpro/{id}(id=${user.userId})}" class="nav-link"> 
+                            <h5>View Profile</h5>
+                          
+                         </a> 
+                     </span> 
+                </li>
+              
+            
+            
+           <!--  <li class="nav-item active">
+           <span th:each="user :${userdetails}">
+              <a class="nav-link"   href="#"><h5><span th:text="${user.firstName}"></span></h5></a>
+           </span>
+            </li> -->
+            <li class="nav-item active">
+             <span>
+              <a class="nav-link" th:href="@{/login}"><h5>log Out</h5></a>
+           </span>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+
+
+
+<div class="container-fluid">
+
+    <!-- <a th:href="@{/MenuAdd}" style="margin: 20px 0" class="btn btn-primary">Add Product</a> -->
+    <a th:href="@{/orderlist}" style="margin: 20px 0" class="btn btn-primary">View Orders</a>
+    
+    <table class="table">
+        <thead class="thead-light">
+        <tr>
+           <th scope="col">Order ID</th> 
+            <th scope="col">Customer Name</th>
+            <th scope="col">Amount</th>
+            <!-- <th scope="col">Status</th> -->
+            <th scope="col">Address</th>
+            <th scope="col">Mob Number</th>
+           <!--  <th scope="col">Approve</th>
+            <th scope="col">Cancel</th> -->
+        </tr>
+        </thead>
+        <tbody>
+
+        <tr th:each="order :${orders}" >
+    
+      <!--<th scope="row" th:text="${iStat.index + 1}"></th>-->
+            <td th:text="${order.id}"></td>
+            <td th:text="${order.firstName}"></td>
+            <td th:text="${order.tAmount}"></td>
+             <td th:text="${order.adrressp1}"></td>
+              <td th:text="${order.phoneNo}"></td>
+              <!-- <td th:text="${order.customerAddress}"></td>-->
+            <!--   <td th:text="${order.customerPhone}"></td>  -->
+         
+         <!--   need id--> 
+           
+      <!--       <td><a  th:href="@{/deleteMenu/{id}(id = ${order.id})}" class="btn btn-warning">Approve</a></td>
+			 <td><a  th:href="@{/updateMenu/{id}(id = ${order.id})}" class="btn btn-danger">Cancel</a></td>  -->
+
+
+
+        </tr>
+        </tbody>
+    </table>
+</div>
+
+ <input type="hidden"  name="${_csrf.parameterName}"   value="${_csrf.token}"/>
+
+
+
+</body>
+</html>

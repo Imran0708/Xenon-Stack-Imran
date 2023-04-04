@@ -1,0 +1,13 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="https://www.thymeleaf.org">
+<head>
+<meta charset="ISO-8859-1">
+<title>restaurant</title>
+</head>
+<body>
+	<h1>hello from restaurant</h1>
+	<div th:text="${#session.getAttribute('useremail')}">John Doe</div>
+	
+	 <input type="hidden"  name="${_csrf.parameterName}"   value="${_csrf.token}"/>
+</body>
+</html>
